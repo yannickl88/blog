@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block sidebar %}
+    <div class="uk-panel uk-panel-box">
+        <h3>Recent posts</h3>
+        <ul class="uk-list uk-list-line">
+            {% for post in blogs | slice(0, 10) %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% for blog in blogs %}
+    <article class="uk-article">
+        <h1 class="uk-article-title"><a href="{{ blog.url }}">{{ blog.title }}</a></h1>
+        <p class="uk-article-meta">Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.</p>
+
+        {{ blog.content | markdown }}
+    </article>
+    {% endfor %}
+{% endblock %}

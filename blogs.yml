@@ -1,0 +1,10 @@
+authors:
+    iltar:
+        name: Iltar van der Berg
+        email: ivanderberg@hostnet.nl
+blogs:
+    avoiding-entities-in-forms:
+        title: Avoiding Entities in Forms
+        author: iltar
+        date: 2016-05-20 13:46:00
+        draft: false

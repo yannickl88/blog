@@ -1,0 +1,1 @@
+Iltar has been working with Symfony for the first time in 2009 and still using it today. He is usually available in `#symfony` on freenode where he is also part-time channel operator. If you're interested in his contributions, you can visit [https://github.com/iltar](https://github.com/iltar).

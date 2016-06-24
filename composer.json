@@ -1,0 +1,20 @@
+{
+    "name":              "ydelange/blog",
+    "description":       "Iltar and Yannick's blog",
+    "license":           "proprietary",
+    "type":              "blog",
+    "require": {
+        "php":              ">=5.6",
+        "erusev/parsedown": "^1.6.0",
+        "symfony/yaml":     "^3.1",
+        "twig/twig":        "^1.24"
+    },
+
+    "require-dev":       {},
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Yannickl88\\Blog\\": "src/"
+        }
+    }
+}
