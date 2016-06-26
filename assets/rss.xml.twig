@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Dev Blog</title>
+        <description>Dev blog of Yannick de Lange &amp; Iltar van der Berg</description>
+        <link>{{ host }}/</link>
+
+        {% for blog in blogs %}
+        <item>
+            <title>{{ blog.title }}</title>
+            <description><![CDATA[{{ blog.summary | markdown }}]]></description>
+            <link>{{ host }}{{ blog.url }}</link>
+            <pubDate>{{ blog.date | date('r') }}</pubDate>
+        </item>
+        {% endfor %}
+
+    </channel>
+</rss>

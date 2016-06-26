@@ -32,6 +32,13 @@ if (1 === preg_match('~^/post/(.+)$~', $request_url, $matches) && $blogger->hasB
     echo $twig->loadTemplate('index.html.twig')->render([
         'blogs' => $blogger->getBlogs()
     ]);
+} elseif (1 === preg_match('~^/rss$~', $request_url, $matches)) {
+    header('Content-type: text/xml');
+
+    echo $twig->loadTemplate('rss.xml.twig')->render([
+        'blogs' => $blogger->getBlogs(),
+        'host'  => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']
+    ]);
 } else {
     header('HTTP/1.0 404 Not Found');
 

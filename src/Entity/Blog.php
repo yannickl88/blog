@@ -86,6 +86,16 @@ class Blog
     /**
      * @return string
      */
+    public function getSummary()
+    {
+        $content = $this->getContent();
+
+        return trim(substr($content, 0, strpos($content, '#')));
+    }
+
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return $this->url;
