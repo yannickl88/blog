@@ -18,6 +18,16 @@
         <p class="uk-article-meta">Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.</p>
 
         {{ blog.content | markdown }}
+
+        <hr>
+        <div class="uk-text-right">
+
+            <i class="uk-icon uk-icon-link"></i>
+            <a href="{{ blog.url }}" class="uk-margin-right">Permalink</a>
+
+            <i class="uk-icon uk-icon-comment"></i>
+            <a href="{{ blog.url }}#disqus_thread" data-disqus-identifier="{{ blog.url }}" data-disqus-url="http://yannickl88.nl{{ blog.url }}">First article</a>
+        </div>
     </article>
     {% endfor %}
 {% endblock %}
