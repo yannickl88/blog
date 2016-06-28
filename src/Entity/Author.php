@@ -1,5 +1,5 @@
 <?php
-namespace Yannickl88\Blog\Entity;
+namespace App\Entity;
 
 class Author implements \JsonSerializable
 {

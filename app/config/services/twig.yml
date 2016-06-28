@@ -1,0 +1,12 @@
+services:
+    app.parsedown:
+        class: Parsedown
+        public: false
+
+    app.twig_extension:
+        class: App\Twig\AppExtension
+        public: false
+        arguments:
+            - "@app.parsedown"
+        tags:
+            - { name: twig.extension }

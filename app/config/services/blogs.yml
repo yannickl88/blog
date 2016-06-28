@@ -1,0 +1,14 @@
+services:
+    app.repository.blog:
+        class: App\Blog\BlogRepository
+        arguments:
+            - "%blog_data_file%"
+
+    app.git.repository_crawler:
+        class: App\Git\RepositoryCrawler
+        arguments:
+            - "%blog_location%"
+            - "%blog_data_file%"
+
+    app.git.info_parser:
+        class: App\Git\RepositoryInfoParser

@@ -1,5 +1,5 @@
 <?php
-namespace Yannickl88\Blog\Entity;
+namespace App\Entity;
 
 class Blog implements \JsonSerializable
 {
@@ -95,7 +95,20 @@ class Blog implements \JsonSerializable
      */
     public function getSummary()
     {
-        return $this->getContent();
+        $summary = '';
+
+        foreach (file($this->file) as $line) {
+            if (strpos($line, '[//]: #') === 0) {
+                continue;
+            }
+            if (strpos($line, '#') === 0) {
+                break;
+            }
+
+            $summary .= $line;
+        }
+
+        return trim($summary);
     }
 
     /**

@@ -1,0 +1,15 @@
+services:
+    app.controller.index:
+        class: App\Controller\IndexController
+        arguments:
+            - "@app.repository.blog"
+
+    app.controller.rss:
+        class: App\Controller\RssController
+        arguments:
+            - "@app.repository.blog"
+
+    app.controller.post:
+        class: App\Controller\PostController
+        arguments:
+            - "@app.repository.blog"

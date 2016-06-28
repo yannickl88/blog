@@ -1,29 +1,43 @@
 <?php
-namespace Yannickl88\Blog;
+namespace App\Blog;
 
-use Yannickl88\Blog\Entity\Author;
-use Yannickl88\Blog\Entity\Blog;
+use App\Entity\Author;
+use App\Entity\Blog;
 
-class Blogger
+/**
+ * Repository class for all blog posts.
+ */
+class BlogRepository
 {
+    private $data_file;
+    private $initialized = false;
     private $authors = [];
     private $blogs   = [];
 
-    private function __construct() {}
-
     /**
      * @param string $data_file
-     * @return Blogger
      */
-    public static function load($data_file)
+    public function __construct($data_file)
     {
-        $blog = new Blogger();
+        $this->data_file = $data_file;
+    }
 
-        if (!file_exists($data_file)) {
-            return $blog;
+    /**
+     * Initialize all the data from cache.
+     */
+    private function load()
+    {
+        if ($this->initialized) {
+            return;
+        }
+
+        $this->initialized = true;
+
+        if (!file_exists($this->data_file)) {
+            return;
         }
         $data = [];
-        $files = json_decode(file_get_contents($data_file), true);
+        $files = json_decode(file_get_contents($this->data_file), true);
 
         foreach ($files as $file) {
             if (!file_exists($file)) {
@@ -34,7 +48,7 @@ class Blogger
         }
 
         foreach ($data['authors'] as $author_data) {
-            $blog->authors[$author_data['uuid']] = new Author(
+            $this->authors[$author_data['uuid']] = new Author(
                 $author_data['uuid'],
                 $author_data['name'],
                 $author_data['email'],
@@ -43,8 +57,8 @@ class Blogger
         }
 
         foreach ($data['blogs'] as $blog_data) {
-            $blog->blogs[$blog_data['slug']] = new Blog(
-                $blog->authors[$blog_data['author']],
+            $this->blogs[$blog_data['slug']] = new Blog(
+                $this->authors[$blog_data['author']],
                 new \DateTime($blog_data['date']),
                 $blog_data['title'],
                 $blog_data['file'],
@@ -54,14 +68,12 @@ class Blogger
             );
         }
 
-        uasort($blog->blogs, function (Blog $a, Blog $b) {
+        uasort($this->blogs, function (Blog $a, Blog $b) {
             if ($a->getDate() === $b->getDate()) {
                 return 0;
             }
             return $a->getDate() > $b->getDate() ? -1 : 1;
         });
-
-        return $blog;
     }
 
     /**
@@ -69,6 +81,7 @@ class Blogger
      */
     public function getBlogs()
     {
+        $this->load();
         $now = new \DateTime();
 
         return array_filter($this->blogs, function (Blog $blog) use ($now) {
@@ -82,6 +95,7 @@ class Blogger
      */
     public function getBlog($name)
     {
+        $this->load();
         return $this->blogs[$name];
     }
 
@@ -91,6 +105,7 @@ class Blogger
      */
     public function getBlogsForAuthor(Author $author)
     {
+        $this->load();
         $now = new \DateTime();
 
         return array_filter($this->blogs, function (Blog $blog) use ($author, $now) {
@@ -104,7 +119,7 @@ class Blogger
      */
     public function hasBlog($name)
     {
+        $this->load();
         return isset($this->blogs[$name]);
     }
 }
-
