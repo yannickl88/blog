@@ -1,7 +1,7 @@
 <?php
 namespace Yannickl88\Blog\Entity;
 
-class Blog
+class Blog implements \JsonSerializable
 {
     /**
      * @var Author
@@ -26,7 +26,7 @@ class Blog
     /**
      * @var string
      */
-    private $url;
+    private $slug;
 
     /**
      * @var bool
@@ -34,21 +34,28 @@ class Blog
     private $is_draft;
 
     /**
+     * @var array
+     */
+    private $tags;
+
+    /**
      * @param Author    $author
      * @param \DateTime $date
      * @param string    $title
      * @param string    $file
-     * @param string    $url
+     * @param string    $slug
      * @param bool      $draft
+     * @param array     $tags
      */
-    public function __construct(Author $author, \DateTime $date, $title, $file, $url, $draft)
+    public function __construct(Author $author, \DateTime $date, $title, $file, $slug, $draft, array $tags = [])
     {
         $this->author   = $author;
         $this->date     = $date;
         $this->title    = $title;
         $this->file     = $file;
-        $this->url      = $url;
+        $this->slug     = $slug;
         $this->is_draft = $draft;
+        $this->tags     = $tags;
     }
 
     /**
@@ -88,9 +95,15 @@ class Blog
      */
     public function getSummary()
     {
-        $content = $this->getContent();
+        return $this->getContent();
+    }
 
-        return trim(substr($content, 0, strpos($content, '#')));
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -98,7 +111,7 @@ class Blog
      */
     public function getUrl()
     {
-        return $this->url;
+        return '/post/' . $this->slug;
     }
 
     /**
@@ -107,5 +120,21 @@ class Blog
     public function isDraft()
     {
         return $this->is_draft;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'author'   => $this->author->getUuid(),
+            'date'     => $this->date->format('c'),
+            'title'    => $this->title,
+            'file'     => $this->file,
+            'slug'     => $this->slug,
+            'is_draft' => $this->is_draft,
+            'tags'     => $this->tags,
+        ];
     }
 }

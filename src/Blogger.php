@@ -18,24 +18,39 @@ class Blogger
     public static function load($data_file)
     {
         $blog = new Blogger();
-        $data = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($data_file));
 
-        foreach ($data['authors'] as $name => $author_data) {
-            $blog->authors[$name] = new Author(
+        if (!file_exists($data_file)) {
+            return $blog;
+        }
+        $data = [];
+        $files = json_decode(file_get_contents($data_file), true);
+
+        foreach ($files as $file) {
+            if (!file_exists($file)) {
+                continue;
+            }
+
+            $data = array_merge($data, json_decode(file_get_contents($file), true));
+        }
+
+        foreach ($data['authors'] as $author_data) {
+            $blog->authors[$author_data['uuid']] = new Author(
+                $author_data['uuid'],
                 $author_data['name'],
                 $author_data['email'],
-                __DIR__ . '/../authors/' . $name . '.md'
+                $author_data['bio']
             );
         }
 
-        foreach ($data['blogs'] as $name => $blog_data) {
-            $blog->blogs[$name] = new Blog(
+        foreach ($data['blogs'] as $blog_data) {
+            $blog->blogs[$blog_data['slug']] = new Blog(
                 $blog->authors[$blog_data['author']],
-                new \DateTime('@' . $blog_data['date']),
+                new \DateTime($blog_data['date']),
                 $blog_data['title'],
-                __DIR__ . '/../blogs/' . $name . '.md',
-                '/post/' . $name,
-                $blog_data['draft']
+                $blog_data['file'],
+                $blog_data['slug'],
+                $blog_data['is_draft'],
+                $blog_data['tags']
             );
         }
 
@@ -54,8 +69,10 @@ class Blogger
      */
     public function getBlogs()
     {
-        return array_filter($this->blogs, function (Blog $blog) {
-            return !$blog->isDraft();
+        $now = new \DateTime();
+
+        return array_filter($this->blogs, function (Blog $blog) use ($now) {
+            return !$blog->isDraft() && $blog->getDate() < $now;
         });
     }
 
@@ -74,8 +91,10 @@ class Blogger
      */
     public function getBlogsForAuthor(Author $author)
     {
-        return array_filter($this->blogs, function (Blog $blog) use ($author) {
-            return $blog->getAuthor() === $author && !$blog->isDraft();
+        $now = new \DateTime();
+
+        return array_filter($this->blogs, function (Blog $blog) use ($author, $now) {
+            return $blog->getAuthor() === $author && !$blog->isDraft() && $blog->getDate() < $now;
         });
     }
 
