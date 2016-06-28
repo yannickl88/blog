@@ -39,6 +39,8 @@ if (1 === preg_match('~^/post/(.+)$~', $request_url, $matches) && $blogger->hasB
         'blogs' => $blogger->getBlogs(),
         'host'  => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']
     ]);
+} elseif (1 === preg_match('~^/deploy$~', $request_url, $matches)) {
+    var_dump(file_get_contents('php://input'));
 } else {
     header('HTTP/1.0 404 Not Found');
 
