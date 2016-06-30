@@ -44,7 +44,7 @@ class BlogRepository
                 continue;
             }
 
-            $data = array_merge($data, json_decode(file_get_contents($file), true));
+            $data = array_merge_recursive($data, json_decode(file_get_contents($file), true));
         }
 
         foreach ($data['authors'] as $author_data) {
