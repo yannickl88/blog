@@ -13,3 +13,8 @@ services:
         class: App\Controller\PostController
         arguments:
             - "@app.repository.blog"
+
+    app.controller.github:
+        class: App\Controller\GithubController
+        arguments:
+            - "@app.git.repository_crawler"

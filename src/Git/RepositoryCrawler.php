@@ -62,13 +62,11 @@ class RepositoryCrawler
      * Update a given repository information.
      *
      * @param Repository $repository
-     * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @throws \App\Git\GitFetchException
      */
     public function update(Repository $repository)
     {
         $location = $this->repositoriesLocation . '/' . $repository->getName();
-        $master   = $repository->getMaster();
 
         if (!file_exists($location)) {
             $url = $repository->getUrl();
@@ -86,7 +84,7 @@ class RepositoryCrawler
 
         try {
             // fetch new information and update to newest master branch
-            $process = new Process(sprintf('git fetch && git reset --hard %s', $master), $location);
+            $process = new Process('git fetch && git reset --hard origin/master', $location);
             $process->mustRun();
         } catch (ProcessFailedException $e) {
             throw new GitFetchException(sprintf('Could not reset repository for "%s".', $location), null, $e);

@@ -24,13 +24,11 @@ class Repository
     /**
      * @param string $name
      * @param string $url
-     * @param string $master
      */
-    public function __construct($name, $url, $master = null)
+    public function __construct($name, $url)
     {
-        $this->name   = str_replace('/', '_', strtolower($name));
-        $this->url    = $url;
-        $this->master = $master ? : 'origin/master';
+        $this->name = str_replace('/', '_', strtolower($name));
+        $this->url  = $url;
     }
 
     /**
@@ -51,15 +49,5 @@ class Repository
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * Return master branch name.
-     *
-     * @return string
-     */
-    public function getMaster()
-    {
-        return $this->master;
     }
 }
