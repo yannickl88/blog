@@ -91,12 +91,12 @@ class BlogRepository
 
     /**
      * @param string $name
-     * @return Blog
+     * @return Blog|null
      */
     public function getBlog($name)
     {
         $this->load();
-        return $this->blogs[$name];
+        return $this->hasBlog($name) ? $this->blogs[$name] : null;
     }
 
     /**
