@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Dev Blog{% endblock %}</title>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/uikit.min.css">
+        <link rel="stylesheet" href="/css/prism.css" data-noprefix />
+        <link rel="stylesheet" href="/css/style.css" data-noprefix />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script id="dsq-count-scr" src="//devyannickl88.disqus.com/count.js" async></script>
+        <script src="/js/uikit.min.js"></script>
+        <script src="/js/prism.js"></script>
+        <link rel="alternate" type="application/rss+xml" title="Stovepipe Systems RSS Feed" href="{{ path("app.rss") }}" />
+    </head>
+
+    <body>
+        <div class="header"></div>
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-3-4">
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="uk-width-medium-1-4">
+                    {% block sidebar %}{% endblock %}
+                </div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-1 uk-text-center uk-text-muted">
+                    Copyright &copy; 2016 Yannick de Lange &amp; Iltar van der Berg.
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

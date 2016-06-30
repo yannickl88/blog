@@ -1,8 +1,13 @@
 <?php
-namespace Yannickl88\Blog\Entity;
+namespace App\Entity;
 
-class Author
+class Author implements \JsonSerializable
 {
+    /**
+     * @var string
+     */
+    private $uuid;
+
     /**
      * @var string
      */
@@ -19,15 +24,25 @@ class Author
     private $bio;
 
     /**
+     * @param string $uuid
      * @param string $name
      * @param string $email
      * @param string $bio
      */
-    public function __construct($name, $email, $bio)
+    public function __construct($uuid, $name, $email, $bio)
     {
+        $this->uuid  = $uuid;
         $this->name  = $name;
         $this->email = $email;
         $this->bio   = $bio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 
     /**
@@ -61,5 +76,18 @@ class Author
     public function getBio()
     {
         return file_get_contents($this->bio);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'uuid'  => $this->uuid,
+            'name'  => $this->name,
+            'email' => $this->email,
+            'bio'   => $this->bio,
+        ];
     }
 }

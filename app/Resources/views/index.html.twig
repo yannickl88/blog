@@ -5,7 +5,7 @@
         <h3>Recent posts</h3>
         <ul class="uk-list uk-list-line">
             {% for post in blogs | slice(0, 10) %}
-                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+                <li><a href="{{ path("app.post", { name: post.slug }) }}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -14,7 +14,7 @@
 {% block content %}
     {% for blog in blogs %}
     <article class="uk-article">
-        <h1 class="uk-article-title"><a href="{{ blog.url }}">{{ blog.title }}</a></h1>
+        <h1 class="uk-article-title"><a href="{{ path("app.post", { name: blog.slug }) }}">{{ blog.title }}</a></h1>
         <p class="uk-article-meta">Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.</p>
 
         {{ blog.content | markdown }}
@@ -23,10 +23,10 @@
         <div class="uk-text-right">
 
             <i class="uk-icon uk-icon-link"></i>
-            <a href="{{ blog.url }}" class="uk-margin-right">Permalink</a>
+            <a href="{{ url("app.post", { name: blog.slug }) }}" class="uk-margin-right">Permalink</a>
 
             <i class="uk-icon uk-icon-comment"></i>
-            <a href="{{ blog.url }}#disqus_thread" data-disqus-identifier="{{ blog.url }}" data-disqus-url="http://yannickl88.nl{{ blog.url }}">First article</a>
+            <a href="{{ path("app.post", { name: blog.slug }) }}#disqus_thread" data-disqus-identifier="{{ blog.url }}">First article</a>
         </div>
     </article>
     {% endfor %}

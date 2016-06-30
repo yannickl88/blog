@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Dev Blog</title>
+        <description>Dev blog of Yannick de Lange &amp; Iltar van der Berg</description>
+        <link>{{ url("app.index") }}/</link>
+
+        {% for blog in blogs %}
+        <item>
+            <title>{{ blog.title }}</title>
+            <description><![CDATA[{{ blog.summary | markdown }}]]></description>
+            <link>{{ url("app.post", { name: blog.slug }) }}</link>
+            <guid>{{ url("app.post", { name: blog.slug }) }}</guid>
+            <pubDate>{{ blog.date | date('r') }}</pubDate>
+        </item>
+        {% endfor %}
+
+    </channel>
+</rss>

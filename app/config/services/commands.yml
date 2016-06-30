@@ -1,0 +1,17 @@
+services:
+    app.command.add_blog:
+        class: App\Command\AddBlogCommand
+        arguments:
+            - "@app.git.repository_crawler"
+            - "@app.git.info_parser"
+        tags:
+            - { name: console.command }
+
+    app.command.update_blogs:
+        class: App\Command\UpdateBlogsCommand
+        arguments:
+            - "@app.git.repository_crawler"
+            - "@app.git.info_parser"
+            - "%blog_location%"
+        tags:
+            - { name: console.command }
