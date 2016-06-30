@@ -3,6 +3,7 @@ namespace App\Git;
 
 use App\Entity\Author;
 use App\Entity\Blog;
+use App\Git\Exception\GitInfoParseException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Yaml;
@@ -12,6 +13,11 @@ use Symfony\Component\Yaml\Yaml;
  */
 class RepositoryCrawler
 {
+    /**
+     * @var RepositoryInfoParser
+     */
+    private $infoParser;
+
     /**
      * @var string
      */
@@ -23,13 +29,33 @@ class RepositoryCrawler
     private $cacheDataFile;
 
     /**
-     * @param string $repositoriesLocation
-     * @param string $cacheDataFile
+     * @param RepositoryInfoParser $infoParser
+     * @param string               $repositoriesLocation
+     * @param string               $cacheDataFile
      */
-    public function __construct($repositoriesLocation, $cacheDataFile)
+    public function __construct(RepositoryInfoParser $infoParser, $repositoriesLocation, $cacheDataFile)
     {
+        $this->infoParser           = $infoParser;
         $this->repositoriesLocation = $repositoriesLocation;
         $this->cacheDataFile        = $cacheDataFile;
+    }
+    
+    public function updateAll()
+    {
+        foreach (glob($this->repositoriesLocation . '/*') as $folder) {
+            if (!file_exists($folder . '/.git/config')) {
+                continue;
+            }
+
+            try {
+                $repo = $this->infoParser->parseFromConfig($folder . '/.git/config');
+            } catch (GitInfoParseException $e) {
+                continue;
+            }
+
+
+            $this->update($repo);
+        }
     }
 
     /**

@@ -1,0 +1,7 @@
+services:
+    app.cache.blogs_warmer:
+        class: App\Blog\BlogsCacheWarmer
+        arguments:
+            - "@app.git.repository_crawler"
+        tags:
+            - { name: kernel.cache_warmer }

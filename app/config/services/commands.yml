@@ -11,7 +11,5 @@ services:
         class: App\Command\UpdateBlogsCommand
         arguments:
             - "@app.git.repository_crawler"
-            - "@app.git.info_parser"
-            - "%blog_location%"
         tags:
             - { name: console.command }
