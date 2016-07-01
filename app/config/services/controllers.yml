@@ -18,3 +18,6 @@ services:
         class: App\Controller\GithubController
         arguments:
             - "@app.git.repository_crawler"
+
+    app.controller.google_analytics:
+        class: App\Controller\GoogleAnalyticsController
