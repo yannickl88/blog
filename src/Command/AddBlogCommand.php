@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command;
 
 use App\Git\Exception\GitInfoParseException;
@@ -27,14 +28,15 @@ class AddBlogCommand extends Command
     /**
      * @param RepositoryCrawler    $crawler
      * @param RepositoryInfoParser $infoParser
+     *
      * @throws \Symfony\Component\Console\Exception\LogicException
      */
     public function __construct(RepositoryCrawler $crawler, RepositoryInfoParser $infoParser)
     {
         parent::__construct('app:add-blog');
 
-        $this->crawler        = $crawler;
-        $this->infoParser     = $infoParser;
+        $this->crawler = $crawler;
+        $this->infoParser = $infoParser;
     }
 
     protected function configure()
@@ -56,7 +58,6 @@ class AddBlogCommand extends Command
 
             return;
         }
-
 
         $this->crawler->update($repo);
     }

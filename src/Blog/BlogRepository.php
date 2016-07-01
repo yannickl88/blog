@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Blog;
 
 use App\Entity\Author;
@@ -12,7 +13,7 @@ class BlogRepository
     private $data_file;
     private $initialized = false;
     private $authors = [];
-    private $blogs   = [];
+    private $blogs = [];
 
     /**
      * @param string $data_file
@@ -72,6 +73,7 @@ class BlogRepository
             if ($a->getDate() === $b->getDate()) {
                 return 0;
             }
+
             return $a->getDate() > $b->getDate() ? -1 : 1;
         });
     }
@@ -91,16 +93,19 @@ class BlogRepository
 
     /**
      * @param string $name
+     *
      * @return Blog|null
      */
     public function getBlog($name)
     {
         $this->load();
+
         return $this->hasBlog($name) ? $this->blogs[$name] : null;
     }
 
     /**
      * @param Author $author
+     *
      * @return Blog[]
      */
     public function getBlogsForAuthor(Author $author)
@@ -115,11 +120,13 @@ class BlogRepository
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasBlog($name)
     {
         $this->load();
+
         return isset($this->blogs[$name]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Git;
 
 use App\Entity\Author;
@@ -35,24 +36,23 @@ class RepositoryCrawler
      */
     public function __construct(RepositoryInfoParser $infoParser, $repositoriesLocation, $cacheDataFile)
     {
-        $this->infoParser           = $infoParser;
+        $this->infoParser = $infoParser;
         $this->repositoriesLocation = $repositoriesLocation;
-        $this->cacheDataFile        = $cacheDataFile;
+        $this->cacheDataFile = $cacheDataFile;
     }
-    
+
     public function updateAll()
     {
-        foreach (glob($this->repositoriesLocation . '/*') as $folder) {
-            if (!file_exists($folder . '/.git/config')) {
+        foreach (glob($this->repositoriesLocation.'/*') as $folder) {
+            if (!file_exists($folder.'/.git/config')) {
                 continue;
             }
 
             try {
-                $repo = $this->infoParser->parseFromConfig($folder . '/.git/config');
+                $repo = $this->infoParser->parseFromConfig($folder.'/.git/config');
             } catch (GitInfoParseException $e) {
                 continue;
             }
-
 
             $this->update($repo);
         }
@@ -62,11 +62,12 @@ class RepositoryCrawler
      * Update a given repository information.
      *
      * @param Repository $repository
+     *
      * @throws \App\Git\GitFetchException
      */
     public function update(Repository $repository)
     {
-        $location = $this->repositoriesLocation . '/' . $repository->getName();
+        $location = $this->repositoriesLocation.'/'.$repository->getName();
 
         if (!file_exists($location)) {
             $url = $repository->getUrl();
@@ -79,6 +80,7 @@ class RepositoryCrawler
             }
 
             $this->index($location, $repository);
+
             return;
         }
 
@@ -98,47 +100,48 @@ class RepositoryCrawler
      *
      * @param string     $location
      * @param Repository $repository
+     *
      * @throws \App\Git\GitFetchException
      */
     private function index($location, Repository $repository)
     {
-        if (!file_exists($location . '/blog.yaml')) {
+        if (!file_exists($location.'/blog.yaml')) {
             throw new GitFetchException(
                 sprintf('No "blog.yaml" found in repository "%s" as "%s".', $repository->getUrl(), $location)
             );
         }
 
         // get the index file
-        $blog = Yaml::parse(file_get_contents($location . '/blog.yaml'));
+        $blog = Yaml::parse(file_get_contents($location.'/blog.yaml'));
         $data = [
-            'blogs' => []
+            'blogs' => [],
         ];
 
         $author = new Author(
             $this->generateUuid($repository->getUrl()),
             $blog['author']['name'],
             $blog['author']['email'],
-            $location . '/' . $blog['settings']['introduction']
+            $location.'/'.$blog['settings']['introduction']
         );
         $data['authors'] = [$author];
 
         // parse blog posts
-        $publishedPosts = $location . '/' . $blog['settings']['published'];
-        $draftPosts     = $location . '/' . $blog['settings']['drafts'];
+        $publishedPosts = $location.'/'.$blog['settings']['published'];
+        $draftPosts = $location.'/'.$blog['settings']['drafts'];
 
-        foreach (glob($publishedPosts . '/*.md') as $file) {
+        foreach (glob($publishedPosts.'/*.md') as $file) {
             list($date, $title, $slug, $tags) = $this->extractData($file);
 
             $data['blogs'][] = new Blog($author, $date, $title, $file, $slug, false, $tags);
         }
 
-        foreach (glob($draftPosts . '/*.md') as $file) {
+        foreach (glob($draftPosts.'/*.md') as $file) {
             list($date, $title, $slug, $tags) = $this->extractData($file);
 
             $data['blogs'][] = new Blog($author, $date, $title, $file, $slug, true, $tags);
         }
 
-        $file = dirname($this->cacheDataFile) . '/' . $repository->getName() . '.json';
+        $file = dirname($this->cacheDataFile).'/'.$repository->getName().'.json';
         $rootFile = $this->cacheDataFile;
         $files = array_unique(array_merge(file_exists($rootFile) ? json_decode(file_get_contents($rootFile), true) : [], [$file]));
 
@@ -151,9 +154,11 @@ class RepositoryCrawler
      * long as the input is the same.
      *
      * @param string $string
+     *
      * @return string
      */
-    private function generateUuid($string) {
+    private function generateUuid($string)
+    {
         $data = substr(md5($string), 0, 16);
 
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
@@ -168,6 +173,7 @@ class RepositoryCrawler
      * Supported meta tags: TITLE, DATE and TAGS
      *
      * @param string $file
+     *
      * @return array
      */
     private function extractData($file)
@@ -200,7 +206,7 @@ class RepositoryCrawler
         }
 
         return [
-            $date, $title, $slug, $tags
+            $date, $title, $slug, $tags,
         ];
     }
 }

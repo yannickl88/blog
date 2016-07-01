@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Blog\BlogRepository;
@@ -27,7 +28,7 @@ class IndexController
     public function indexAction()
     {
         return [
-            'blogs' => $this->blog_repository->getBlogs()
+            'blogs' => $this->blog_repository->getBlogs(),
         ];
     }
 }
