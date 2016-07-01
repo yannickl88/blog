@@ -15,9 +15,15 @@
     {% for blog in blogs %}
     <article class="uk-article">
         <h1 class="uk-article-title"><a href="{{ path("app.post", { name: blog.slug }) }}">{{ blog.title }}</a></h1>
-        <p class="uk-article-meta">Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.</p>
+        <p class="uk-article-meta">
+            Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.
+        </p>
 
         {{ blog.content | markdown }}
+
+        <p class="uk-article-meta">
+            Tags: {% for tag in blog.tags %}<span class="uk-badge">{{ tag }}</span> {% endfor %}
+        </p>
 
         <hr>
         <div class="uk-text-right">

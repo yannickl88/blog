@@ -22,11 +22,18 @@
 
 {% block content %}
     <article class="uk-article">
-        <h1 class="uk-article-title">{{ blog.title }}</h1>
-        <p class="uk-article-meta">Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }} on {{ blog.date | date('F jS Y') }}.</p>
+        <h1 class="uk-article-title">{{ blog.title }}{% if blog.draft %} (DRAFT){% endif %}</h1>
+        <p class="uk-article-meta">
+            Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> {{ blog.author.name }}{% if not blog.draft %} on {{ blog.date | date('F jS Y') }}{% endif %}.
+        </p>
 
         {{ blog.content | markdown }}
 
+        <p class="uk-article-meta">
+            Tags: {% for tag in blog.tags %}<span class="uk-badge">{{ tag }}</span> {% endfor %}
+        </p>
+
+        {% if not blog.draft %}
         <div id="disqus_thread"></div>
         <script>
             (function() {  // DON'T EDIT BELOW THIS LINE
@@ -39,5 +46,8 @@
             })();
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        {% else %}
+            <div id="disqus_thread"><div class="uk-text-muted uk-text-center uk-text-small">This post is draft, comments are disabled.</div></div>
+        {% endif %}
     </article>
 {% endblock %}

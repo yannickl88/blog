@@ -34,7 +34,7 @@ class Blog implements \JsonSerializable
     private $is_draft;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $tags;
 
@@ -45,7 +45,7 @@ class Blog implements \JsonSerializable
      * @param string    $file
      * @param string    $slug
      * @param bool      $draft
-     * @param array     $tags
+     * @param string[]  $tags
      */
     public function __construct(Author $author, \DateTime $date, $title, $file, $slug, $draft, array $tags = [])
     {
@@ -133,6 +133,14 @@ class Blog implements \JsonSerializable
     public function isDraft()
     {
         return $this->is_draft;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /**
