@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Twig;
 
 /**
@@ -33,7 +34,7 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('markdown', [$this, 'markdownFilter'], ['is_safe' => ['html']])
+            new \Twig_SimpleFilter('markdown', [$this, 'markdownFilter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -41,6 +42,7 @@ class AppExtension extends \Twig_Extension
      * Parse a string with Markdown.
      *
      * @param $string
+     *
      * @return string
      */
     public function markdownFilter($string)

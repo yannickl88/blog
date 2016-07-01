@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 class Blog implements \JsonSerializable
@@ -49,13 +50,13 @@ class Blog implements \JsonSerializable
      */
     public function __construct(Author $author, \DateTime $date, $title, $file, $slug, $draft, array $tags = [])
     {
-        $this->author   = $author;
-        $this->date     = $date;
-        $this->title    = $title;
-        $this->file     = $file;
-        $this->slug     = $slug;
+        $this->author = $author;
+        $this->date = $date;
+        $this->title = $title;
+        $this->file = $file;
+        $this->slug = $slug;
         $this->is_draft = $draft;
-        $this->tags     = $tags;
+        $this->tags = $tags;
     }
 
     /**
@@ -124,7 +125,7 @@ class Blog implements \JsonSerializable
      */
     public function getUrl()
     {
-        return '/post/' . $this->slug;
+        return '/post/'.$this->slug;
     }
 
     /**
@@ -149,13 +150,13 @@ class Blog implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'author'   => $this->author->getUuid(),
-            'date'     => $this->date->format('c'),
-            'title'    => $this->title,
-            'file'     => $this->file,
-            'slug'     => $this->slug,
+            'author' => $this->author->getUuid(),
+            'date' => $this->date->format('c'),
+            'title' => $this->title,
+            'file' => $this->file,
+            'slug' => $this->slug,
             'is_draft' => $this->is_draft,
-            'tags'     => $this->tags,
+            'tags' => $this->tags,
         ];
     }
 }

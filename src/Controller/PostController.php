@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Blog\BlogRepository;
@@ -32,8 +33,8 @@ class PostController
         }
 
         return [
-            'blog'    => $blog,
-            'related' => $this->blog_repository->getBlogsForAuthor($blog->getAuthor())
+            'blog' => $blog,
+            'related' => $this->blog_repository->getBlogsForAuthor($blog->getAuthor()),
         ];
     }
 }

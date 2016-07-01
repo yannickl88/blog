@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Git;
 
 /**
@@ -28,11 +29,11 @@ class Repository
     public function __construct($name, $url)
     {
         $this->name = str_replace('/', '_', strtolower($name));
-        $this->url  = $url;
+        $this->url = $url;
     }
 
     /**
-     * Return name
+     * Return name.
      *
      * @return string
      */

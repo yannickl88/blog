@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Git;
 
 use App\Git\Exception\GitInfoParseException;
@@ -7,7 +8,9 @@ class RepositoryInfoParser
 {
     /**
      * @param string $file
+     *
      * @return Repository
+     *
      * @throws \App\Git\Exception\GitInfoParseException
      */
     public function parseFromConfig($file)
@@ -23,7 +26,7 @@ class RepositoryInfoParser
         }
 
         $url = $data['remote origin']['url'];
-        $name = basename(dirname($url)) . '/' . basename($url, '.git');
+        $name = basename(dirname($url)).'/'.basename($url, '.git');
 
         return new Repository(
             $name,
@@ -33,11 +36,12 @@ class RepositoryInfoParser
 
     /**
      * @param string $url
+     *
      * @return Repository
      */
     public function parseFromUrl($url)
     {
-        $name = basename(dirname($url)) . '/' . basename($url, '.git');
+        $name = basename(dirname($url)).'/'.basename($url, '.git');
 
         return new Repository($name, $url);
     }

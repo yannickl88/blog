@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Git\Github;
 
 use App\Git\Github\Exception\InvalidSignatureException;
@@ -12,6 +13,7 @@ class WebHookEventValidator
      * @param string $userBody
      * @param string $userSignature
      * @param string $secret
+     *
      * @throws \App\Git\Github\Exception\InvalidSignatureException
      */
     public static function validate($userBody, $userSignature, $secret)

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Git\Github;
 
 use App\Git\Repository;
@@ -26,12 +27,13 @@ class WebHookEvent
      * correctly signed.
      *
      * @param Request $request
+     *
      * @throws \App\Git\Github\Exception\InvalidSignatureException
      */
     public function __construct(Request $request)
     {
         $signature = $request->headers->get('X-Hub-Signature');
-        $body      = $request->getContent();
+        $body = $request->getContent();
 
         // validate the event
         WebHookEventValidator::validate($body, $signature, $request->server->get('GITHUB_SECRET'));
@@ -42,7 +44,7 @@ class WebHookEvent
             $data['repository']['full_name'],
             $data['repository']['clone_url']
         );
-        $this->event      = $request->headers->get('X-GitHub-Event');
+        $this->event = $request->headers->get('X-GitHub-Event');
     }
 
     /**

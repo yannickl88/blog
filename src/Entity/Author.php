@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 class Author implements \JsonSerializable
@@ -31,10 +32,10 @@ class Author implements \JsonSerializable
      */
     public function __construct($uuid, $name, $email, $bio)
     {
-        $this->uuid  = $uuid;
-        $this->name  = $name;
+        $this->uuid = $uuid;
+        $this->name = $name;
         $this->email = $email;
-        $this->bio   = $bio;
+        $this->bio = $bio;
     }
 
     /**
@@ -63,11 +64,12 @@ class Author implements \JsonSerializable
 
     /**
      * @param int $size
+     *
      * @return string
      */
     public function getGravatarUrl($size = 200)
     {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '?s=' . $size;
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?s='.$size;
     }
 
     /**
@@ -84,10 +86,10 @@ class Author implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'uuid'  => $this->uuid,
-            'name'  => $this->name,
+            'uuid' => $this->uuid,
+            'name' => $this->name,
             'email' => $this->email,
-            'bio'   => $this->bio,
+            'bio' => $this->bio,
         ];
     }
 }

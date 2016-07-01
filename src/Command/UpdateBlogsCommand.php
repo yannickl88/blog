@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command;
 
 use App\Git\RepositoryCrawler;
@@ -18,6 +19,7 @@ class UpdateBlogsCommand extends Command
 
     /**
      * @param RepositoryCrawler $crawler
+     *
      * @throws \Symfony\Component\Console\Exception\LogicException
      */
     public function __construct(RepositoryCrawler $crawler)
