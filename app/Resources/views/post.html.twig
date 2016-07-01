@@ -9,6 +9,13 @@
         <div class="uk-text-left">
             {{ blog.author.bio | markdown }}
         </div>
+
+        <div>
+            {% for type, url in blog.author.urls %}
+                <a href="{{ url }}"><i class="uk-icon uk-icon-{{ type }}"></i></a>
+            {% endfor %}
+        </div>
+
     </div>
     <div class="uk-panel uk-panel-box">
         <h3>More posts by {{ blog.author.shortName }}</h3>

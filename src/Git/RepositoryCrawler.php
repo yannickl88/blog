@@ -121,7 +121,8 @@ class RepositoryCrawler
             $this->generateUuid($repository->getUrl()),
             $blog['author']['name'],
             $blog['author']['email'],
-            $location.'/'.$blog['settings']['introduction']
+            $location.'/'.$blog['settings']['introduction'],
+            $blog['author']['urls']
         );
         $data['authors'] = [$author];
 

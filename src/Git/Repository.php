@@ -7,47 +7,27 @@ namespace App\Git;
  */
 class Repository
 {
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $url;
 
-    /**
-     * @var string
-     */
-    private $master;
-
-    /**
-     * @param string $name
-     * @param string $url
-     */
-    public function __construct($name, $url)
+    public function __construct(string $name, string $url)
     {
         $this->name = str_replace('/', '_', strtolower($name));
         $this->url = $url;
     }
 
     /**
-     * Return name.
-     *
-     * @return string
+     * Returns the name of the repository.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Return git URL.
-     *
-     * @return string
+     * Returns the git URL.
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
