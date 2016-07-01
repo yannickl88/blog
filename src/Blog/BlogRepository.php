@@ -53,7 +53,8 @@ class BlogRepository
                 $author_data['uuid'],
                 $author_data['name'],
                 $author_data['email'],
-                $author_data['bio']
+                $author_data['bio'],
+                $author_data['urls']
             );
         }
 

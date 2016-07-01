@@ -4,92 +4,69 @@ namespace App\Entity;
 
 class Author implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
     private $uuid;
-
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $email;
-
-    /**
-     * @var string
-     */
     private $bio;
+    private $urls;
 
     /**
-     * @param string $uuid
-     * @param string $name
-     * @param string $email
-     * @param string $bio
+     * @param string   $uuid
+     * @param string   $name
+     * @param string   $email
+     * @param string   $bio
+     * @param string[] $urls
      */
-    public function __construct($uuid, $name, $email, $bio)
+    public function __construct(string $uuid, string $name, string $email, string $bio, array $urls)
     {
         $this->uuid = $uuid;
         $this->name = $name;
         $this->email = $email;
         $this->bio = $bio;
+        $this->urls = $urls;
     }
 
-    /**
-     * @return string
-     */
-    public function getUuid()
+    public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getShortName()
+    public function getShortName(): string
     {
         return substr($this->name, 0, strpos($this->name, ' '));
     }
 
-    /**
-     * @param int $size
-     *
-     * @return string
-     */
-    public function getGravatarUrl($size = 200)
+    public function getGravatarUrl(int $size = 200): string
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'?s='.$size;
     }
 
-    /**
-     * @return string
-     */
-    public function getBio()
+    public function getBio(): string
     {
         return file_get_contents($this->bio);
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function jsonSerialize()
+    public function getUrls(): array
+    {
+        return $this->urls;
+    }
+
+    public function jsonSerialize(): array
     {
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email,
             'bio' => $this->bio,
+            'urls' => $this->urls,
         ];
     }
 }
