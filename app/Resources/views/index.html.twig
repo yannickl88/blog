@@ -32,7 +32,7 @@
             <a href="{{ url("app.post", { name: blog.slug }) }}" class="uk-margin-right">Permalink</a>
 
             <i class="uk-icon uk-icon-comment"></i>
-            <a href="{{ path("app.post", { name: blog.slug }) }}#disqus_thread" data-disqus-identifier="{{ blog.url }}">First article</a>
+            <a href="{{ path("app.post", { name: blog.slug }) }}#disqus_thread">First article</a>
         </div>
     </article>
     {% endfor %}
