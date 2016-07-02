@@ -8,6 +8,7 @@ services:
         class: App\Controller\RssController
         arguments:
             - "@app.repository.blog"
+            - "@templating"
 
     app.controller.post:
         class: App\Controller\PostController

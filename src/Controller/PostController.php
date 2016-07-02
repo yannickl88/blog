@@ -17,9 +17,9 @@ class PostController
      */
     private $blog_repository;
 
-    public function __construct(BlogRepository $blog_repository)
+    public function __construct(BlogRepository $blogRepository)
     {
-        $this->blog_repository = $blog_repository;
+        $this->blog_repository = $blogRepository;
     }
 
     /**
