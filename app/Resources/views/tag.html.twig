@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-    {% for blog in blogs %}
+    {% for blog in tag_blogs %}
         {% include 'article.html.twig' with {blog : blog, comments: false} only %}
     {% endfor %}
 {% endblock %}
