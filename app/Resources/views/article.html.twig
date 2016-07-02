@@ -1,7 +1,7 @@
 <article class="uk-article">
     <h1 class="uk-article-title"><a href="{{ path("app.post", { name : blog.slug }) }}">{{ blog.title }}{% if blog.draft %} (DRAFT){% endif %}</a></h1>
     <p class="uk-article-meta">
-        Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> <a href="{{ path("app.author", { name : blog.author.shortname }) }}">{{ blog.author.name }}</a>{% if not blog.draft %} on {{ blog.date | date('F jS Y') }}{% endif %}.
+        Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> <a href="{{ path("app.author", { name : blog.author.shortname | lower }) }}">{{ blog.author.name }}</a>{% if not blog.draft %} on {{ blog.date | date('F jS Y') }}{% endif %}.
     </p>
 
     {{ blog.content | markdown }}
