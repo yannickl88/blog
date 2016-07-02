@@ -14,11 +14,11 @@ class IndexController
     /**
      * @var BlogRepository
      */
-    private $blog_repository;
+    private $blogRepository;
 
     public function __construct(BlogRepository $blogRepository)
     {
-        $this->blog_repository = $blogRepository;
+        $this->blogRepository = $blogRepository;
     }
 
     /**
@@ -28,7 +28,7 @@ class IndexController
     public function indexAction()
     {
         return [
-            'blogs' => $this->blog_repository->getBlogs(),
+            'blogs' => $this->blogRepository->getBlogs(),
         ];
     }
 }

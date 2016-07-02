@@ -105,6 +105,20 @@ class BlogRepository
     }
 
     /**
+     * @param string $name
+     *
+     * @return Author|null
+     */
+    public function getAuthorByName($name)
+    {
+        $this->load();
+
+        return current(array_filter($this->authors, function (Author $author) use ($name) {
+            return strtolower($author->getShortName()) === strtolower($name);
+        })) ? : null;
+    }
+
+    /**
      * @param Author $author
      *
      * @return Blog[]
@@ -116,6 +130,21 @@ class BlogRepository
 
         return array_filter($this->blogs, function (Blog $blog) use ($author, $now) {
             return $blog->getAuthor() === $author && !$blog->isDraft() && $blog->getDate() < $now;
+        });
+    }
+
+    /**
+     * @param string $tag
+     *
+     * @return Blog[]
+     */
+    public function getBlogsForTag($tag)
+    {
+        $this->load();
+        $now = new \DateTime();
+
+        return array_filter($this->blogs, function (Blog $blog) use ($tag, $now) {
+            return in_array($tag, $blog->getTags()) && !$blog->isDraft() && $blog->getDate() < $now;
         });
     }
 

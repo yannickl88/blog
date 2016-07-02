@@ -16,7 +16,7 @@ class RssController
     /**
      * @var BlogRepository
      */
-    private $blog_repository;
+    private $blogRepository;
 
     /**
      * @var EngineInterface
@@ -25,7 +25,7 @@ class RssController
 
     public function __construct(BlogRepository $blogRepository, EngineInterface $templating)
     {
-        $this->blog_repository = $blogRepository;
+        $this->blogRepository = $blogRepository;
         $this->templating      = $templating;
     }
 
@@ -36,7 +36,7 @@ class RssController
     {
         return new Response($this->templating->render(
             'rss.xml.twig',
-            ['blogs' => $this->blog_repository->getBlogs()]
+            ['blogs' => $this->blogRepository->getBlogs()]
         ), 200, ['Content-Type' => 'application/rss+xml']);
     }
 }

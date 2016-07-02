@@ -38,7 +38,7 @@ class Author implements \JsonSerializable
 
     public function getShortName(): string
     {
-        return substr($this->name, 0, strpos($this->name, ' '));
+        return trim(substr($this->name, 0, strpos($this->name, ' ')));
     }
 
     public function getGravatarUrl(int $size = 200): string

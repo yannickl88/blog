@@ -1,26 +1,25 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ blog.title }} by {{ blog.author.name }}{% endblock %}
-
 {% block sidebar %}
     <div class="uk-panel uk-panel-box uk-text-center">
-        <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(120) }}" alt="">
-        <h3>{{ blog.author.name }}</h3>
+        <img class="uk-border-circle" src="{{ author.gravatarUrl(120) }}" alt="">
+        <h3>{{ author.name }}</h3>
         <div class="uk-text-left">
-            {{ blog.author.bio | markdown }}
+            {{ author.bio | markdown }}
         </div>
 
         <div>
-            {% for type, url in blog.author.urls %}
+            {% for type, url in author.urls %}
                 <a href="{{ url }}"><i class="uk-icon uk-icon-{{ type }}"></i></a>
             {% endfor %}
         </div>
 
     </div>
+
     <div class="uk-panel uk-panel-box">
-        <h3>More posts by {{ blog.author.shortName }}</h3>
+        <h3>Recent posts by {{ author.shortName }}</h3>
         <ul class="uk-list uk-list-line">
-            {% for post in related %}
+            {% for post in blogs %}
                 <li><a href="{{ path("app.post", { name : post.slug }) }}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
@@ -28,5 +27,8 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'article.html.twig' with {blog : blog, comments: true} only %}
+    {% for blog in blogs %}
+        {% include 'article.html.twig' with {blog : blog, comments: false} only %}
+    {% endfor %}
 {% endblock %}
+

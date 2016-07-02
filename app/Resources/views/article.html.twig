@@ -1,0 +1,41 @@
+<article class="uk-article">
+    <h1 class="uk-article-title"><a href="{{ path("app.post", { name : blog.slug }) }}">{{ blog.title }}{% if blog.draft %} (DRAFT){% endif %}</a></h1>
+    <p class="uk-article-meta">
+        Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> <a href="{{ path("app.author", { name : blog.author.shortname }) }}">{{ blog.author.name }}</a>{% if not blog.draft %} on {{ blog.date | date('F jS Y') }}{% endif %}.
+    </p>
+
+    {{ blog.content | markdown }}
+
+    <p class="uk-article-meta">
+        Tags: {% for tag in blog.tags %}<a class="uk-badge" href="{{ path("app.tag", {tag : tag}) }}">{{ tag }}</a> {% endfor %}
+    </p>
+
+    {% if comments is defined and comments %}
+        {% if not blog.draft %}
+            <div id="disqus_thread"></div>
+            <script>
+                (function() {  // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+
+                    s.src = '//devyannickl88.disqus.com/embed.js';
+
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        {% else %}
+            <div id="disqus_thread"><div class="uk-text-muted uk-text-center uk-text-small">This post is draft, comments are disabled.</div></div>
+        {% endif %}
+    {% else %}
+        <hr>
+        <div class="uk-text-right">
+
+            <i class="uk-icon uk-icon-link"></i>
+            <a href="{{ url("app.post", { name: blog.slug }) }}" class="uk-margin-right">Permalink</a>
+
+            <i class="uk-icon uk-icon-comment"></i>
+            <a href="{{ path("app.post", { name: blog.slug }) }}#disqus_thread">First article</a>
+        </div>
+    {% endif %}
+</article>

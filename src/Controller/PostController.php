@@ -15,11 +15,11 @@ class PostController
     /**
      * @var BlogRepository
      */
-    private $blog_repository;
+    private $blogRepository;
 
     public function __construct(BlogRepository $blogRepository)
     {
-        $this->blog_repository = $blogRepository;
+        $this->blogRepository = $blogRepository;
     }
 
     /**
@@ -28,13 +28,41 @@ class PostController
      */
     public function indexAction($name)
     {
-        if (null === ($blog = $this->blog_repository->getBlog($name))) {
+        if (null === ($blog = $this->blogRepository->getBlog($name))) {
             throw new NotFoundHttpException();
         }
 
         return [
             'blog' => $blog,
-            'related' => $this->blog_repository->getBlogsForAuthor($blog->getAuthor()),
+            'related' => $this->blogRepository->getBlogsForAuthor($blog->getAuthor()),
+        ];
+    }
+
+    /**
+     * @Route("/author/{name}", name="app.author")
+     * @Template("author.html.twig")
+     */
+    public function authorAction($name)
+    {
+        if (null === ($author = $this->blogRepository->getAuthorByName($name))) {
+            throw new NotFoundHttpException();
+        }
+
+        return [
+            'author' => $author,
+            'blogs' => $this->blogRepository->getBlogsForAuthor($author)
+        ];
+    }
+
+    /**
+     * @Route("/tag/{tag}", name="app.tag")
+     * @Template("tag.html.twig")
+     */
+    public function tagAction($tag)
+    {
+        return [
+            'tag_blogs' => $this->blogRepository->getBlogsForTag($tag),
+            'blogs' => $this->blogRepository->getBlogs(),
         ];
     }
 }
