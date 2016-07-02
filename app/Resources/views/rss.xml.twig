@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
+        <atom:link href="{{ url("app.rss") }}" rel="self" type="application/rss+xml" />
+
         <title>Dev Blog</title>
         <description>Dev blog of Yannick de Lange &amp; Iltar van der Berg</description>
-        <link>{{ url("app.index") }}/</link>
+        <link>{{ url("app.index") }}</link>
 
         {% for blog in blogs %}
         <item>
