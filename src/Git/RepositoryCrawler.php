@@ -105,14 +105,24 @@ class RepositoryCrawler
      */
     private function index($location, Repository $repository)
     {
-        if (!file_exists($location.'/blog.yaml')) {
-            throw new GitFetchException(
-                sprintf('No "blog.yaml" found in repository "%s" as "%s".', $repository->getUrl(), $location)
-            );
+        $file = $location.'/blog.yml';
+
+        if (!file_exists($file)) {
+            $file = $location.'/blog.yaml';
+
+            if (!file_exists($file)) {
+                throw new GitFetchException(
+                    sprintf(
+                        'No "blog.yml" or "blog.yaml" found in repository "%s" at "%s".',
+                        $repository->getUrl(),
+                        $location
+                    )
+                );
+            }
         }
 
         // get the index file
-        $blog = Yaml::parse(file_get_contents($location.'/blog.yaml'));
+        $blog = Yaml::parse(file_get_contents($file));
         $data = [
             'blogs' => [],
         ];
