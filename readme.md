@@ -33,9 +33,10 @@ Additional settings you can apply:
 ### Blog Post Statuses
 
 There are three different statuses a blog post can have:
- - Draft: will be displayed when the url is accessed directly but not listed.
- - Unpublished: same as draft but in the published directory and will be released if the publish data is passed.
- - Published: when the publish date has been passed in the published directory, also adds Disqus features.
+ - Draft: will be displayed when the url is accessed directly but not listed. Disqus features are disabled for drafts.
+ - Unpublished: same as draft but in the published directory and have a date in the future. Once the date has been
+   passed they will become published.
+ - Published: when the publish date has been passed in the published directory.
 
 
 ### Blog Post Metadata
