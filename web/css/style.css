@@ -4,3 +4,7 @@
     background: url(/images/header.png) no-repeat center;
     background-size: cover;
 }
+.header.big {
+    display: block;
+    height: 400px;
+}

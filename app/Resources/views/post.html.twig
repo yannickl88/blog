@@ -1,6 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}{{ blog.title }} by {{ blog.author.name }}{% endblock %}
+{% block meta %}
+    <meta name="author" content="{{ blog.author.name }}">
+    <meta name="description" content="Author: {{ blog.author.name }}, Title: {{ blog.title }}">
+{% endblock %}
 
 {% block sidebar %}
     <div class="uk-panel uk-panel-box uk-text-center">
