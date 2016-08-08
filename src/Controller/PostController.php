@@ -61,8 +61,8 @@ class PostController
     public function tagAction($tag)
     {
         return [
+            'tag' => $tag,
             'tag_blogs' => $this->blogRepository->getBlogsForTag($tag),
-            'blogs' => $this->blogRepository->getBlogs(),
         ];
     }
 }

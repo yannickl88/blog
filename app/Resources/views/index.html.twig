@@ -1,5 +1,9 @@
 {% extends 'layout.html.twig' %}
 
+{% block header %}
+    <a class="header big" href="{{ path("app.index") }}"></a>
+{% endblock %}
+
 {% block sidebar %}
     <div class="uk-panel uk-panel-box">
         <h3>Recent posts</h3>
@@ -13,25 +17,6 @@
 
 {% block content %}
     {% for blog in blogs %}
-        <article class="uk-article">
-            <h1 class="uk-article-title"><a href="{{ path("app.post", { name : blog.slug }) }}">{{ blog.title }}</a></h1>
-            <p class="uk-article-meta">
-                Written by <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(20) }}"> <a href="{{ path("app.author", { name : blog.author.shortname | lower }) }}">{{ blog.author.name }}</a> on {{ blog.date | date('F jS Y') }}.
-            </p>
-
-            {{ blog.summary | markdown }}
-
-            <div class="uk-grid">
-                <div class="uk-width-1-2">
-                    <a href="{{ path("app.post", { name : blog.slug }) }}">Read whole post</a>
-                </div>
-                <div class="uk-width-1-2 uk-text-right">
-                    <i class="uk-icon uk-icon-comment"></i>
-                    <a href="{{ path("app.post", { name: blog.slug }) }}#disqus_thread">First article</a>
-                </div>
-            </div>
-            <hr>
-        </article>
-
+        {% include 'summary.html.twig' with {blog : blog} only %}
     {% endfor %}
 {% endblock %}

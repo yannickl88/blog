@@ -2,9 +2,9 @@
 
 {% block sidebar %}
     <div class="uk-panel uk-panel-box">
-        <h3>Recent posts</h3>
+        <h3>Recent posts for {{ tag }}</h3>
         <ul class="uk-list uk-list-line">
-            {% for post in blogs | slice(0, 10) %}
+            {% for post in tag_blogs | slice(0, 10) %}
                 <li><a href="{{ path("app.post", { name: post.slug }) }}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
@@ -12,8 +12,10 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Post for the tag: {{ tag }}</h1>
+
     {% for blog in tag_blogs %}
-        {% include 'article.html.twig' with {blog : blog, comments: false} only %}
+        {% include 'summary.html.twig' with {blog : blog, title_size: 'lead'} only %}
     {% endfor %}
 {% endblock %}
 

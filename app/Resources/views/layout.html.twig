@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block meta %}
         <meta name="description" content="Development blog of Yannick de Lange and Iltar van der Berg" />
+        {% endblock %}
         <title>{% block title %}Stovepipe Systems{% endblock %}</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/uikit.min.css">
@@ -16,7 +18,9 @@
     </head>
 
     <body>
-        <a class="header" href="{{ path("app.index") }}"></a>
+        {% block header %}
+            <a class="header" href="{{ path("app.index") }}"></a>
+        {% endblock %}
 
         <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 

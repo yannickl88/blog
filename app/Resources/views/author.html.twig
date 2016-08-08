@@ -27,8 +27,9 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Blog posts by {{ author.name }}</h1>
     {% for blog in blogs %}
-        {% include 'article.html.twig' with {blog : blog, comments: false} only %}
+        {% include 'summary.html.twig' with {blog : blog, title_size: 'lead'} only %}
     {% endfor %}
 {% endblock %}
 
