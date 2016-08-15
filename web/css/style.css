@@ -8,3 +8,16 @@
     display: block;
     height: 400px;
 }
+
+article table {
+    border-collapse: collapse;
+}
+
+article table td, article table th {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+article table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
