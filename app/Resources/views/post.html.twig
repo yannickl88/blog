@@ -7,9 +7,8 @@
 {% endblock %}
 
 {% block sidebar %}
-    <div class="uk-panel uk-panel-box uk-text-center">
-        <img class="uk-border-circle" src="{{ blog.author.gravatarUrl(120) }}" alt="">
-        <h3>{{ blog.author.name }}</h3>
+    <div class="about uk-panel uk-panel-box uk-text-center">
+        <img class="uk-border-circle uk-margin-bottom" src="{{ blog.author.gravatarUrl(120) }}" alt="">
         <div class="uk-text-left">
             {{ blog.author.bio | markdown }}
         </div>
@@ -21,13 +20,11 @@
         </div>
 
     </div>
-    <div class="uk-panel uk-panel-box">
+    <div class="more uk-panel uk-panel-box">
         <h3>More posts by {{ blog.author.shortName }}</h3>
-        <ul class="uk-list uk-list-line">
-            {% for post in related %}
-                <li><a href="{{ path("app.post", { name : post.slug }) }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% for post in related %}
+            <a href="{{ path("app.post", { name : post.slug }) }}">{{ post.title }}</a>
+        {% endfor %}
     </div>
 {% endblock %}
 

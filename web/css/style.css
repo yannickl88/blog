@@ -1,10 +1,75 @@
+body, html {
+    background-size: cover;
+    background: #333 url(/images/header.png) no-repeat top center;
+    height: 100%;
+    color: #fff;
+}
+
+h4, h3, h2, h1 {
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ccc;
+}
+
+.about.uk-panel-box {
+    background: transparent;
+    color: #fff;
+}
+
+.more.uk-panel-box {
+    background: transparent;
+}
+
+.more a {
+    display: block;
+}
+
+.about a {
+    margin: 0 5px;
+}
+
 .header {
+    background: url(/images/logo-small.png) no-repeat left center;
     display: block;
     height: 100px;
-    background: url(/images/header.png) no-repeat center;
-    background-size: cover;
 }
+
 .header.big {
+    background: url(/images/logo.png) no-repeat center center;
     display: block;
-    height: 400px;
+    height: 50%;
+}
+
+@media screen and (max-width: 480px) {
+    .header.big {
+        background-size: 70%;
+    }
+}
+
+.uk-article-meta {
+    color: #ccc;
+}
+
+:not(pre)>code, :not(pre)>kbd, :not(pre)>samp, em {
+    color: #e4b870;
+}
+
+.uk-badge {
+    background: #fff;
+    color: #333;
+    padding: 2px 7px;
+    border-radius: 10%;
+    text-decoration: none;
+}
+a.uk-badge:hover {
+    text-decoration: none;
+    background: #ddd;
+    color: #333;
 }
