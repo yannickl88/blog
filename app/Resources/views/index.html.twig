@@ -5,13 +5,11 @@
 {% endblock %}
 
 {% block sidebar %}
-    <div class="uk-panel uk-panel-box">
+    <div class="more uk-panel uk-panel-box">
         <h3>Recent posts</h3>
-        <ul class="uk-list uk-list-line">
-            {% for post in blogs | slice(0, 10) %}
-                <li><a href="{{ path("app.post", { name: post.slug }) }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% for post in blogs | slice(0, 10) %}
+            <a href="{{ path("app.post", { name: post.slug }) }}">{{ post.title }}</a>
+        {% endfor %}
     </div>
 {% endblock %}
 
