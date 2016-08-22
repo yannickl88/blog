@@ -2,15 +2,15 @@ body, html {
     background-size: cover;
     background: #333 url(/images/header.png) no-repeat top center;
     height: 100%;
-    color: #fff;
+    color: #eee;
 }
 
 h4, h3, h2, h1 {
-    color: #fff;
+    color: #eee;
 }
 
 a {
-    color: #fff;
+    color: #eee;
     text-decoration: underline;
 }
 
@@ -26,7 +26,7 @@ blockquote {
 
 .about.uk-panel-box {
     background: transparent;
-    color: #fff;
+    color: #eee;
 }
 
 .more.uk-panel-box {
@@ -35,10 +35,18 @@ blockquote {
 
 .more a {
     display: block;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px #666 solid;
 }
 
 .about a {
     margin: 0 5px;
+}
+
+.main-wrapper {
+    padding-top: 20px;
+    background: url(/images/main-bg.png) repeat-x;
 }
 
 .header {
@@ -68,7 +76,7 @@ blockquote {
 }
 
 .uk-badge {
-    background: #fff;
+    background: #eee;
     color: #333;
     padding: 2px 7px;
     margin: 2px 0;

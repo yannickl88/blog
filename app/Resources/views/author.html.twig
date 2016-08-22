@@ -1,9 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block sidebar %}
-    <div class="uk-panel uk-panel-box uk-text-center">
-        <img class="uk-border-circle" src="{{ author.gravatarUrl(120) }}" alt="">
-        <h3>{{ author.name }}</h3>
+    <div class="about uk-panel uk-panel-box uk-text-center">
+        <img class="uk-border-circle uk-margin-bottom" src="{{ author.gravatarUrl(120) }}" alt="">
         <div class="uk-text-left">
             {{ author.bio | markdown }}
         </div>
@@ -16,13 +15,11 @@
 
     </div>
 
-    <div class="uk-panel uk-panel-box">
+    <div class="more uk-panel uk-panel-box">
         <h3>Recent posts by {{ author.shortName }}</h3>
-        <ul class="uk-list uk-list-line">
-            {% for post in blogs %}
-                <li><a href="{{ path("app.post", { name : post.slug }) }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% for post in blogs %}
+            <a href="{{ path("app.post", { name : post.slug }) }}">{{ post.title }}</a>
+        {% endfor %}
     </div>
 {% endblock %}
 
