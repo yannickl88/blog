@@ -66,7 +66,7 @@ a:hover {
     color: #333;
     padding: 2px 7px;
     margin: 2px 0;
-    border-radius: 10%;
+    border-radius: 4px;
     text-decoration: none;
 }
 a.uk-badge:hover {
@@ -80,10 +80,10 @@ article table {
 }
 
 article table td, article table th {
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     padding: 5px 10px;
 }
 
 article table tr:nth-child(2n) {
-    background-color: #f8f8f8;
+    background-color: #444;
 }
