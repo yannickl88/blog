@@ -18,6 +18,12 @@ a:hover {
     color: #ccc;
 }
 
+blockquote {
+    color: #ccc;
+    font-size: 14px;
+    border-left: 5px solid #555;
+}
+
 .about.uk-panel-box {
     background: transparent;
     color: #fff;
