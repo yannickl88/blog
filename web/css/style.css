@@ -1,6 +1,6 @@
 body, html {
+    background: #333 url(/images/header.jpg) no-repeat top center;
     background-size: cover;
-    background: #333 url(/images/header.png) no-repeat top center;
     height: 100%;
     color: #eee;
 }
@@ -61,12 +61,6 @@ blockquote {
     height: 50%;
 }
 
-@media screen and (max-width: 480px) {
-    .header.big {
-        background-size: 70%;
-    }
-}
-
 .uk-article-meta {
     color: #ccc;
 }
@@ -100,4 +94,14 @@ article table td, article table th {
 
 article table tr:nth-child(2n) {
     background-color: #444;
+}
+
+@media screen and (max-width: 480px) {
+    body, html {
+        background-size: 300%;
+    }
+
+    .header.big {
+        background-size: 70%;
+    }
 }
